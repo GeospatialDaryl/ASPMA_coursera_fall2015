@@ -99,75 +99,6 @@ def readAudio(inputFile):
         plt.show()
 
     return smpl
-
-"""
-A1-Part-2: Basic operations with audio
-
-Write a function that reads an audio file and returns the minimum and the maximum values of the audio 
-samples in that file. 
-
-The input to the function is the wav file name (including the path) and the output should be two floating 
-point values returned as a tuple.
-
-If you run your code using oboe-A4.wav as the input, the function should return the following output:  
-(-0.83486432, 0.56501967)
-"""
-def minMaxAudio(inputFile):
-    """
-    Input:
-        inputFile: file name of the wav file (including path)
-    Output:
-        A tuple of the minimum and the maximum value of the audio samples, like: (min_val, max_val)
-    """
-    A = scipy.io.wavfile.read(inputFile)
-    (fs, a) = A
-    print "fN", inputFile, "fs", fs
-    f_s = fs 
-    
-    floatMax = 0.
-    floatMin = 0.
-    
-    from utilFunctions import wavread
-    def convertSciPyWav_I2F( A, outObj = A, norm = False ):
-        '''
-        
-        '''
-        inA = A
-        
-        kConvert_16_bit = float(2**15)
-        fs = inA[0]
-        a  = inA[1]
-        
-        smpls = a / (kConvert_16_bit + 1.)
-
-        #smpls = a / (kConvert_16_bit + 0)
-        
-        outObj = (fs, smpls)
-        
-        del a, fs, inA
-        
-        return outObj
-        
-    
-    A = scipy.io.wavfile.read(inputFile) #  samplingFq , amplitudes
-    #os.system("play "+ inputFile)
-    #print len(a)
-    #print a[1].max()
-    Ap = convertSciPyWav_I2F( A )
-    del A
-    A = Ap
-    del Ap
-    
-    verbose = False
-    if verbose:
-        
-        print lengthSamples
-        plt.plot(smpl)
-        plt.show()
-
-    return ( A[1].min() , A[1].max() )     
-
-        
     
 class Odio:
     import sys
@@ -236,10 +167,8 @@ if __name__ == "__main__":
     sF = "hmpback4_441.wav"
     odioF = sys.path[0]+os.sep+sF
     #os.system("play "+sF)
-    #out = readAudio(odioF)
-    out = minMaxAudio(odioF)
-    print out
-    out = minMaxAudio("../../sounds/oboe-A4.wav")
+    out = readAudio(odioF)
+    print len(out)
     for samples in out:
         print samples
     
